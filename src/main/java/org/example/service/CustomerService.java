@@ -1,6 +1,7 @@
 package org.example.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.dto.CustomerDTO;
 import org.example.entity.Customer;
 import org.example.repository.CustomerRepository;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
 
@@ -21,14 +22,16 @@ public class CustomerService {
                 .phone(dto.getPhone())
                 .build());
     }
+
     public List<Customer> readAll() {
-        return  customerRepository.findAll();
-    }
-    public  Customer update(Customer customer){
-        return  customerRepository.save(customer);
+        return customerRepository.findAll();
     }
 
-    public void delete(Long id){
+    public Customer update(Customer customer) {
+        return customerRepository.save(customer);
+    }
+
+    public void delete(Long id) {
         customerRepository.deleteById(id);
     }
 

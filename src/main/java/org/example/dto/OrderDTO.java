@@ -1,10 +1,14 @@
 package org.example.dto;
-import lombok.Data;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.example.enumClass.OrderStatus;
 import org.example.enumClass.PaymentMethod;
 
 import java.time.LocalDate;
-@Data
+
+@Getter
+@Setter
 public class OrderDTO {
     private LocalDate orderDate;
     private OrderStatus orderStatus;

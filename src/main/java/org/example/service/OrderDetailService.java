@@ -1,7 +1,8 @@
 package org.example.service;
+
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.dto.OrderDetailDTO;
-import org.example.entity.Customer;
 import org.example.entity.OrderDetail;
 import org.example.entity.Orders;
 import org.example.entity.Product;
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderDetailService {
     private final OrderDetailRepository orderDetailRepository;
     private final OrderService orderService;
     private final ProductService productService;
+
     public OrderDetail create(OrderDetailDTO dto) {
         Orders orders = orderService.findById(dto.getOrderId());
         Product product = productService.findById(dto.getProductId());
@@ -43,6 +45,7 @@ public class OrderDetailService {
         return orderDetailRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("OrderDetail not found with id: " + id));
     }
+
     public List<OrderDetail> findByOrderId(Long orderId) {
         return orderDetailRepository.findByOrderId(orderId);
     }

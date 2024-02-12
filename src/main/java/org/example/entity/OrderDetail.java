@@ -1,16 +1,16 @@
 package org.example.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "order_detail")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,9 @@ public class OrderDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "order_date")
     private Double price;
 
+    @Column(name = "quantity")
     private Integer quantity;
 }

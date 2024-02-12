@@ -2,17 +2,19 @@ package org.example.controller;
 
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.dto.OrderDetailDTO;
+import org.example.entity.OrderDetail;
 import org.example.service.OrderDetailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.example.entity.OrderDetail;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/orderDetail")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderDetailController {
     private final OrderDetailService orderDetailService;
 

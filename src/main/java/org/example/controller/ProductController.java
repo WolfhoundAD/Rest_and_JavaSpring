@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.dto.ProductDTO;
 import org.example.entity.Product;
 import org.example.service.ProductService;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
-@RequestMapping("/products")
+@RequiredArgsConstructor
+@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -51,6 +52,7 @@ public class ProductController {
     private ResponseEntity<List<Product>> mappingResponseListProduct(List<Product> products) {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
     @GetMapping("/inStock")
     public ResponseEntity<List<Product>> readInStockProducts() {
         List<Product> inStockProducts = productService.readInStockProducts();

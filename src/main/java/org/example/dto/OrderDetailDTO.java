@@ -1,9 +1,11 @@
 package org.example.dto;
 
 import lombok.Data;
-import org.example.entity.Product;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class OrderDetailDTO {
     private Long orderId;
     private Long productId;

@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.dto.OrderDTO;
 import org.example.entity.Orders;
 import org.example.service.OrderService;
@@ -9,8 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService ordersService;
@@ -43,6 +45,7 @@ public class OrderController {
     private ResponseEntity<List<Orders>> mappingResponseListOrder(List<Orders> orders) {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Orders> findById(@PathVariable Long id) {
         return mappingResponseOrder(ordersService.findById(id));
