@@ -1,9 +1,9 @@
-package org.example.dto;
+package api.version_1.dto;
 
+import api.version_1.enumClass.OrderStatus;
+import api.version_1.enumClass.PaymentMethod;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.enumClass.OrderStatus;
-import org.example.enumClass.PaymentMethod;
 
 import java.time.LocalDate;
 

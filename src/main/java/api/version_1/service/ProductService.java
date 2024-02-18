@@ -1,10 +1,9 @@
-package org.example.service;
+package api.version_1.service;
 
-import lombok.AllArgsConstructor;
+import api.version_1.dto.ProductDTO;
+import api.version_1.entity.Product;
+import api.version_1.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.example.dto.ProductDTO;
-import org.example.entity.Product;
-import org.example.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

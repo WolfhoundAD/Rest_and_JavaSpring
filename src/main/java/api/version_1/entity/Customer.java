@@ -1,7 +1,6 @@
-package org.example.entity;
+package api.version_1.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,18 +9,17 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "product")
-public class Product {
+@Table(name = "customer")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "price")
-    private Short price;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "in_stock")
-    private Boolean inStock;
-
+    @Column(name = "address")
+    private String address;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "phone")
+    private Long phone;
 }

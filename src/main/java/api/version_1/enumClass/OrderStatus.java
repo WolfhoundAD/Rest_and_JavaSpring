@@ -1,4 +1,4 @@
-package org.example.enumClass;
+package api.version_1.enumClass;
 
 public enum OrderStatus {
     CREATED,

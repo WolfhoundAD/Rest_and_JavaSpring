@@ -1,6 +1,6 @@
-package org.example.repository;
+package api.version_1.repository;
 
-import org.example.entity.OrderDetail;
+import api.version_1.entity.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,8 @@
-package org.example.entity;
+package api.version_1.entity;
 
+import api.version_1.enumClass.OrderStatus;
+import api.version_1.enumClass.PaymentMethod;
 import lombok.*;
-import org.example.enumClass.OrderStatus;
-import org.example.enumClass.PaymentMethod;
 
 import javax.persistence.*;
 import java.time.LocalDate;

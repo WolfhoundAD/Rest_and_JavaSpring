@@ -1,9 +1,9 @@
-package org.example.controller;
+package api.version_1.controller;
 
+import api.version_1.dto.CustomerDTO;
+import api.version_1.entity.Customer;
+import api.version_1.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.example.dto.CustomerDTO;
-import org.example.entity.Customer;
-import org.example.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

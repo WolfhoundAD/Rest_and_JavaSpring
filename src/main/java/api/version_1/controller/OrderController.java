@@ -1,10 +1,9 @@
-package org.example.controller;
+package api.version_1.controller;
 
-import lombok.AllArgsConstructor;
+import api.version_1.dto.OrderDTO;
+import api.version_1.entity.Orders;
+import api.version_1.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.example.dto.OrderDTO;
-import org.example.entity.Orders;
-import org.example.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +18,17 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Orders> create(@RequestBody OrderDTO dto) {
-        return mappingResponseOrder(ordersService.create(dto));
+        return ResponseEntity.ok(ordersService.create(dto));
     }
 
     @GetMapping
     public ResponseEntity<List<Orders>> readAll() {
-        return mappingResponseListOrder(ordersService.readAll());
+        return ResponseEntity.ok(ordersService.readAll());
     }
 
     @PutMapping
     public ResponseEntity<Orders> update(@RequestBody Orders orders) {
-        return mappingResponseOrder(ordersService.update(orders));
+        return ResponseEntity.ok(ordersService.update(orders));
     }
 
     @DeleteMapping("/{id}")
@@ -38,16 +37,8 @@ public class OrderController {
         return HttpStatus.OK;
     }
 
-    private ResponseEntity<Orders> mappingResponseOrder(Orders orders) {
-        return new ResponseEntity<>(orders, HttpStatus.OK);
-    }
-
-    private ResponseEntity<List<Orders>> mappingResponseListOrder(List<Orders> orders) {
-        return new ResponseEntity<>(orders, HttpStatus.OK);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Orders> findById(@PathVariable Long id) {
-        return mappingResponseOrder(ordersService.findById(id));
+        return ResponseEntity.ok(ordersService.findById(id));
     }
 }

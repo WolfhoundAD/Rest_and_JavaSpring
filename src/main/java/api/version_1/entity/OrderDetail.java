@@ -1,7 +1,6 @@
-package org.example.entity;
+package api.version_1.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity

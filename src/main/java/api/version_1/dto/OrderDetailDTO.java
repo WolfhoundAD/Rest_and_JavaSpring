@@ -1,6 +1,5 @@
-package org.example.dto;
+package api.version_1.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
