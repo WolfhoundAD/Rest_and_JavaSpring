@@ -4,7 +4,6 @@ import api.version_1.dto.OrderDTO;
 import api.version_1.entity.Orders;
 import api.version_1.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +31,9 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         ordersService.delete(id);
-        return HttpStatus.OK;
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

@@ -4,7 +4,6 @@ import api.version_1.dto.ProductDTO;
 import api.version_1.entity.Product;
 import api.version_1.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +32,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);
-        return HttpStatus.OK;
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/inStock")
