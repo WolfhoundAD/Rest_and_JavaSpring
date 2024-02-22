@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository ordersRepository;
-    private final CustomerService customerService;
+     private final CustomerService customerService;
 
     public Orders create(OrderDTO dto) {
         Customer customer = customerService.findById(dto.getCustomerId());

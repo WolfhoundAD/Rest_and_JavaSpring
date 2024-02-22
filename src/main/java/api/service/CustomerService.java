@@ -1,10 +1,12 @@
 package api.service;
 
+import api.mapper.CustomerMapper;
 import api.repository.CustomerRepository;
 import api.dto.CustomerDTO;
 import api.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
@@ -12,14 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
 
-    public Customer create(CustomerDTO dto) {
-        return customerRepository.save(Customer.builder()
-                .name(dto.getName())
-                .address(dto.getAddress())
-                .email(dto.getEmail())
-                .phone(dto.getPhone())
-                .build());
+    public CustomerDTO create(CustomerDTO dto) {
+        Customer customer = customerMapper.customerDTOToCustomer(dto);
+        return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
 
     public List<Customer> readAll() {

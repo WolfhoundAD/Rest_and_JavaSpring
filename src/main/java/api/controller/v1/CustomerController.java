@@ -2,11 +2,13 @@ package api.controller.v1;
 
 import api.dto.CustomerDTO;
 import api.service.CustomerService;
+import api.mapper.CustomerMapper;
 import api.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,16 +16,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerService customerService;
 
+    private CustomerService customerService;
+    private CustomerMapper customerMapper;
+
+    public CustomerController(CustomerService customerService, CustomerMapper customerMapper) {
+        this.customerService = customerService;
+        this.customerMapper = customerMapper;
+    }
     @PostMapping
-    public ResponseEntity<Customer> create(@RequestBody CustomerDTO dto) {
+    public ResponseEntity<CustomerDTO> create(@RequestBody CustomerDTO dto) {
         return ResponseEntity.ok(customerService.create(dto));
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> readAll() {
-        return ResponseEntity.ok(customerService.readAll());
+    public ResponseEntity<List<CustomerDTO>> readAll() {
+        List<Customer> customers = customerService.readAll();
+        List<CustomerDTO> customerDTOs = new ArrayList<>();
+
+        for (Customer customer : customers) {
+            customerDTOs.add(customerMapper.customerToCustomerDTO(customer));
+        }
+
+        return ResponseEntity.ok(customerDTOs);
     }
 
     @PutMapping
