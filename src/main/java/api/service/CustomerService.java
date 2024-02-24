@@ -11,10 +11,14 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+    private final CustomerMapper customerMapper;
+
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+        this.customerRepository = customerRepository;
+        this.customerMapper = customerMapper;
+    }
 
     public CustomerDTO create(CustomerDTO dto) {
         Customer customer = customerMapper.customerDTOToCustomer(dto);
