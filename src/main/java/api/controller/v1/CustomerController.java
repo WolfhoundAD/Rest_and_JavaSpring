@@ -17,28 +17,16 @@ import java.util.List;
 public class CustomerController {
 
 
-    private CustomerService customerService;
-    private CustomerMapper customerMapper;
+    private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService, CustomerMapper customerMapper) {
-        this.customerService = customerService;
-        this.customerMapper = customerMapper;
-    }
     @PostMapping
     public ResponseEntity<CustomerDTO> create(@RequestBody CustomerDTO dto) {
         return ResponseEntity.ok(customerService.create(dto));
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerDTO>> readAll() {
-        List<Customer> customers = customerService.readAll();
-        List<CustomerDTO> customerDTOs = new ArrayList<>();
-
-        for (Customer customer : customers) {
-            customerDTOs.add(customerMapper.customerToCustomerDTO(customer));
-        }
-
-        return ResponseEntity.ok(customerDTOs);
+    public ResponseEntity<List<Customer>> readAll() {
+        return ResponseEntity.ok(customerService.readAll());
     }
 
     @PutMapping

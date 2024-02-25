@@ -5,24 +5,28 @@ import api.repository.CustomerRepository;
 import api.dto.CustomerDTO;
 import api.entity.Customer;
 import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
-        this.customerRepository = customerRepository;
-        this.customerMapper = customerMapper;
-    }
+    /**
+     * Создает нового клиента на основе переданных данных.
+     *
+     * @param dto данные клиента для создания
+     * @return созданный объект Customer
+     */
 
     public CustomerDTO create(CustomerDTO dto) {
-        Customer customer = customerMapper.customerDTOToCustomer(dto);
-        return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
+        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(dto);
+        Customer savedCustomer = customerRepository.save(customer);
+        return CustomerMapper.INSTANCE.customerToCustomerDTO(savedCustomer);
     }
 
     public List<Customer> readAll() {
@@ -38,7 +42,7 @@ public class CustomerService {
     }
 
     public Customer findById(Long id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
+        return customerRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Cannot find customer by id" + id));
     }
 }
