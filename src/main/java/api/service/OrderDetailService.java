@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class OrderDetailService {
         Product product = productService.findById(dto.getProductId());
         orderDetail.setOrder(orders);
         orderDetail.setProduct(product);
-        orderDetail.setPrice(orderDetail.getPrice());
+        orderDetail.setPrice(dto.getPrice());
         return orderDetailRepository.save(orderDetail);
     }
 
@@ -38,15 +39,27 @@ public class OrderDetailService {
     }
 
     public void delete(Long id) {
-        orderDetailRepository.deleteById(id);
+        try {
+            orderDetailRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete order detail with id: " + id, e);
+        }
     }
 
     public OrderDetail findById(Long id) {
-        return orderDetailRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("OrderDetail not found with id: " + id));
+        try {
+            Optional<OrderDetail> orderDetail = orderDetailRepository.findById(id);
+            return orderDetail.orElseThrow(() -> new RuntimeException("OrderDetail not found with id: " + id));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to find order detail with id: " + id, e);
+        }
     }
 
     public List<OrderDetail> findByOrderId(Long orderId) {
-        return orderDetailRepository.findByOrderId(orderId);
+        try {
+            return orderDetailRepository.findByOrderId(orderId);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to find order details with orderId: " + orderId, e);
+        }
     }
 }

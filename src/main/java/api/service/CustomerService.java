@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,11 +39,19 @@ public class CustomerService {
     }
 
     public void delete(Long id) {
-        customerRepository.deleteById(id);
+        try {
+            customerRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete customer with id: " + id, e);
+        }
     }
 
     public Customer findById(Long id) {
-        return customerRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Cannot find customer by id" + id));
+        try {
+            Optional<Customer> customer = customerRepository.findById(id);
+            return customer.orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to find customer with id: " + id, e);
+        }
     }
 }

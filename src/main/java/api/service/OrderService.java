@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,11 +33,19 @@ public class OrderService {
     }
 
     public void delete(Long id) {
-        ordersRepository.deleteById(id);
+        try {
+            ordersRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete order with id: " + id, e);
+        }
     }
 
     public Orders findById(Long id) {
-        return ordersRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        try {
+            Optional<Orders> order = ordersRepository.findById(id);
+            return order.orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to find order with id: " + id, e);
+        }
     }
 }
