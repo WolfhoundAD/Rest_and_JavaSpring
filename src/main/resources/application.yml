@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product-manager
+    username: postgres
+    password: 192837465
+
+server:
+  port: 8081

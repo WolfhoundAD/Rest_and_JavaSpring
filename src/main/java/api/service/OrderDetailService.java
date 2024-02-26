@@ -4,10 +4,12 @@ import api.entity.Orders;
 import api.dto.OrderDetailDTO;
 import api.entity.OrderDetail;
 import api.entity.Product;
+import api.mapper.OrderDetailMapper;
 import api.repository.OrderDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -18,13 +20,12 @@ public class OrderDetailService {
     private final ProductService productService;
 
     public OrderDetail create(OrderDetailDTO dto) {
+        OrderDetail orderDetail = OrderDetailMapper.INSTANCE.orderDetailDTOToOrderDetail(dto);
         Orders orders = orderService.findById(dto.getOrderId());
         Product product = productService.findById(dto.getProductId());
-        OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrder(orders);
         orderDetail.setProduct(product);
-        orderDetail.setPrice(dto.getPrice());
-        orderDetail.setQuantity(dto.getQuantity());
+        orderDetail.setPrice(orderDetail.getPrice());
         return orderDetailRepository.save(orderDetail);
     }
 

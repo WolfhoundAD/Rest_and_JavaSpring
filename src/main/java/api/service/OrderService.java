@@ -3,6 +3,7 @@ package api.service;
 import api.entity.Orders;
 import api.dto.OrderDTO;
 import api.entity.Customer;
+import api.mapper.OrderMapper;
 import api.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,8 @@ public class OrderService {
      private final CustomerService customerService;
 
     public Orders create(OrderDTO dto) {
+        Orders orders = OrderMapper.INSTANCE.orderDTOToOrder(dto);
         Customer customer = customerService.findById(dto.getCustomerId());
-        Orders orders = new Orders();
-        orders.setOrderDate(dto.getOrderDate());
-        orders.setOrderStatus(dto.getOrderStatus());
-        orders.setPaymentMethod(dto.getPaymentMethod());
         orders.setCustomer(customer);
         return ordersRepository.save(orders);
     }
