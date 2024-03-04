@@ -3,6 +3,7 @@ package ru.shop.shoppingcart.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -20,7 +21,7 @@ public class Product {
     private String name;
 
     @Column(name = "price")
-    private Short price;
+    private BigDecimal price;
 
     @Column(name = "description")
     private String description;

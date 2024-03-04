@@ -3,11 +3,13 @@ package ru.shop.shoppingcart.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class ProductDTO {
     private String name;
-    private Short price;
+    private BigDecimal price;
     private String description;
     private Boolean inStock;
 }

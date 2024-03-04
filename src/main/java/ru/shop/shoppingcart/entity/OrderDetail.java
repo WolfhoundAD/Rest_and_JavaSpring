@@ -2,6 +2,7 @@ package ru.shop.shoppingcart.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -23,8 +24,8 @@ public class OrderDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "order_date")
-    private Double price;
+    @Column(name = "price")
+    private BigDecimal price;
 
     @Column(name = "quantity")
     private Integer quantity;

@@ -3,10 +3,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/product-manager
     username: postgres
     password: 192837465
-
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
     drop-first: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
 
 server:
   port: 8081
