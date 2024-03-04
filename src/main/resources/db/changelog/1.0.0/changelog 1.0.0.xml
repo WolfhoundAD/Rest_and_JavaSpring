@@ -1,0 +1,106 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="GraveGit" id="1">
+        <createTable tableName="customer">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="GraveGit" id="2">
+        <createTable tableName="customer_order">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_method" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="customer_order"
+                                 baseColumnNames="customer_id"
+                                 referencedTableName="customer"
+                                 referencedColumnNames="id"
+                                 constraintName="customer_id_fkey"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+    </changeSet>
+
+    <changeSet author="GraveGit" id="4">
+        <createTable tableName="product">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar"/>
+            <column name="in_stock" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="GraveGit" id="3">
+        <createTable tableName="order_detail">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="order_detail"
+                                 baseColumnNames="order_id"
+                                 referencedTableName="customer_order"
+                                 referencedColumnNames="id"
+                                 constraintName="order_id_fkey"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="order_detail"
+                                 baseColumnNames="product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"
+                                 constraintName="product_id_fkey"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -4,5 +4,7 @@ spring:
     username: postgres
     password: 192837465
 
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
 server:
   port: 8081
