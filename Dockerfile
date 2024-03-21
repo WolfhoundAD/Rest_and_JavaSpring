@@ -1,14 +1,21 @@
-FROM maven:3.6.3-jdk-11 as build
+#
+# Build stage
+#
+FROM public.ecr.aws/docker/library/maven:3.8.6-amazoncorretto-11 AS build
 
 COPY /src /home/app/src
 COPY /pom.xml /home/app
 
-RUN mvn -f /home/app/pom.xml clean install
+RUN mvn -f /home/app/pom.xml clean install -DskipTests
 
-FROM a007408283154978ab33a/jdk-11.0.2.9-slim
+#
+# Package stage
+#
+FROM amazoncorretto:11-alpine-jdk
 
-EXPOSE 8080
+EXPOSE 8090
 
-COPY --from=build /home/app/target/shoppingcart-1.0-SNAPSHOT.jar /user/local/lib/application.jar
+COPY --from=build /home/app/target/application.jar application.jar
 
-CMD ["java", "-jar", "application.jar"]
+
+ENTRYPOINT ["java","-jar","application.jar"]

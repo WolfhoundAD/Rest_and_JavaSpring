@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public List<Product> readAll() {
-        return productRepository.findAll();
+    public Stream<Product> readAll() {
+        return productRepository.findAll().stream();
     }
 
     public Product update(Product product) {

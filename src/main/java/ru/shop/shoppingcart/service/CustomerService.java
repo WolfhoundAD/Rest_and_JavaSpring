@@ -1,5 +1,7 @@
 package ru.shop.shoppingcart.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.shop.shoppingcart.mapper.CustomerMapper;
 import ru.shop.shoppingcart.repository.CustomerRepository;
 import ru.shop.shoppingcart.dto.CustomerDTO;
@@ -7,7 +9,6 @@ import ru.shop.shoppingcart.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,12 +29,14 @@ public class CustomerService {
         return CustomerMapper.INSTANCE.customerToCustomerDTO(savedCustomer);
     }
 
-    public List<Customer> readAll() {
-        return customerRepository.findAll();
+    public Page<CustomerDTO> readAll(Pageable pageable) {
+        Page<Customer> customers = customerRepository.findAll(pageable);
+        return customers.map(CustomerMapper.INSTANCE::customerToCustomerDTO);
     }
-
-    public Customer update(Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDTO update(CustomerDTO dto) {
+        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(dto);
+        Customer updatedCustomer = customerRepository.save(customer);
+        return CustomerMapper.INSTANCE.customerToCustomerDTO(updatedCustomer);
     }
 
     public void delete(Long id) {

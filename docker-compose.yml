@@ -1,0 +1,40 @@
+version: '3.8'
+
+networks:
+  real:
+    driver: bridge
+
+volumes:
+  postgres_data_reality:
+    driver: local
+
+services:
+
+  postgres:
+    container_name: Real-Postgres
+    image: postgres:13
+    volumes:
+      - postgres_data_reality:/var/lib/postgresql/data
+    ports:
+      - "8080:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: unless-stopped
+    networks:
+      - real
+
+  real-backend:
+    container_name: Real-Backend
+    image: real/real-backend:latest
+    build: .
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    networks:
+      - real
+    depends_on:
+      - postgres

@@ -22,7 +22,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ru.shop.shoppingcart.controller"))
+                .apis(RequestHandlerSelectors.basePackage("ru.shop.shoppingcart.controller.v1"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());

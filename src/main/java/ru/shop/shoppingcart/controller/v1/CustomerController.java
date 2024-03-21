@@ -1,5 +1,7 @@
 package ru.shop.shoppingcart.controller.v1;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.shop.shoppingcart.dto.CustomerDTO;
 import ru.shop.shoppingcart.service.CustomerService;
 import ru.shop.shoppingcart.entity.Customer;
@@ -10,24 +12,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<CustomerDTO> create(@RequestBody CustomerDTO dto) {
         return ResponseEntity.ok(customerService.create(dto));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Customer>> readAll() {
-        return ResponseEntity.ok(customerService.readAll());
+    @GetMapping("/")
+    public ResponseEntity<Page<CustomerDTO>> readAll(Pageable pageable) {
+        Page<CustomerDTO> customerDTOPage = customerService.readAll(pageable);
+        return ResponseEntity.ok(customerDTOPage);
     }
 
-    @PutMapping
-    public ResponseEntity<Customer> update(@RequestBody Customer customer) {
-        return ResponseEntity.ok(customerService.update(customer));
+    @PutMapping("/")
+    public ResponseEntity<CustomerDTO> update(@RequestBody CustomerDTO dto) {
+        CustomerDTO updatedCustomerDTO = customerService.update(dto);
+        return ResponseEntity.ok(updatedCustomerDTO);
     }
 
     @DeleteMapping("/{id}")
